@@ -23,8 +23,14 @@ var BankAccount = /** @class */ (function () {
         return amountDeposited;
     };
     BankAccount.prototype.withDraw = function (amount) {
-        console.log("# Prelevo: " + amount + "€");
-        return (this.balanceInit -= amount);
+        console.log("Richiesta di prelievo...");
+        if (this.balanceInit > amount) {
+            console.log("# Prelevo: " + amount + "€");
+            return (this.balanceInit -= amount);
+        }
+        else {
+            return "Non ci sono abbastanza fondi";
+        }
     };
     return BankAccount;
 }());
@@ -34,12 +40,18 @@ var InterestAccount = /** @class */ (function (_super) {
         return _super.call(this, _balanceInit) || this;
     }
     InterestAccount.prototype.withDraw = function (amount) {
-        console.log("# Prelevo: " + amount + "€");
-        this.balanceInit -= amount;
-        var interest = this.balanceInit * 0.1; // 10%
-        console.log("# Interessi: " + interest + "€");
-        this.balanceInit -= interest;
-        return this.balanceInit;
+        console.log("Richiesta di prelievo...");
+        if (this.balanceInit > amount) {
+            console.log("# Prelevo: " + amount + "€");
+            this.balanceInit -= amount;
+            var interest = this.balanceInit * 0.1; // 10%
+            console.log("# Interessi: " + interest + "€");
+            this.balanceInit -= interest;
+            return this.balanceInit;
+        }
+        else {
+            console.log("Non ci sono abbastanza fondi");
+        }
     };
     return InterestAccount;
 }(BankAccount));

@@ -10,9 +10,14 @@ class BankAccount {
     return amountDeposited;
   }
 
-  withDraw(amount: number): number {
-    console.log("# Prelevo: " + amount + "€");
-    return (this.balanceInit -= amount);
+  withDraw(amount: number): any {
+    console.log("Richiesta di prelievo...");
+    if (this.balanceInit > amount) {
+      console.log("# Prelevo: " + amount + "€");
+      return (this.balanceInit -= amount);
+    } else {
+      return "Non ci sono abbastanza fondi";
+    }
   }
 }
 
@@ -21,13 +26,18 @@ class InterestAccount extends BankAccount {
     super(_balanceInit);
   }
 
-  withDraw(amount: number): number {
-    console.log("# Prelevo: " + amount + "€");
-    this.balanceInit -= amount;
-    const interest = this.balanceInit * 0.1; // 10%
-    console.log("# Interessi: " + interest + "€");
-    this.balanceInit -= interest;
-    return this.balanceInit;
+  withDraw(amount: number): any {
+    console.log("Richiesta di prelievo...");
+    if (this.balanceInit > amount) {
+      console.log("# Prelevo: " + amount + "€");
+      this.balanceInit -= amount;
+      const interest = this.balanceInit * 0.1; // 10%
+      console.log("# Interessi: " + interest + "€");
+      this.balanceInit -= interest;
+      return this.balanceInit;
+    } else {
+      console.log("Non ci sono abbastanza fondi");
+    }
   }
 }
 
